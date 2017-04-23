@@ -175,6 +175,15 @@ def setup_plexserver(host, token, hass, config, add_devices_callback):
                 else:
                     plex_clients[machine_identifier].refresh(None, session)
 
+            # Check if we have a client with an inactive session.
+            # If so, force client to idle.
+            for machine_identifier, client in plex_clients.items():
+                if (machine_identifier not in plex_sessions
+                        and client.session is not None):
+                    # Session has closed, i.e. has gone idle.
+                    # Force client to idle.
+                    client.force_idle()
+
         for machine_identifier, client in plex_clients.items():
             # force devices to idle that do not have a valid session
             if client.session is None:
