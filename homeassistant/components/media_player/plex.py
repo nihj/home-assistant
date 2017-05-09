@@ -164,6 +164,8 @@ def setup_plexserver(host, token, hass, config, add_devices_callback):
 
         # add devices with a session and no client (ex. PlexConnect Apple TV's)
         if config.get(CONF_INCLUDE_NON_CLIENTS):
+            # Force update of sessions aswell
+            update_sessions()
             for machine_identifier, session in plex_sessions.items():
                 if (machine_identifier not in plex_clients
                         and machine_identifier is not None):
