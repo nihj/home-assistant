@@ -1,0 +1,5 @@
+Start venv:
+source env/bin/activate
+
+Install pyclimax, run from within venv:
+pip install <path_to_pyclimax>
